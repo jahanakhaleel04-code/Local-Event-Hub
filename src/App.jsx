@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-    App
+    <div className='bg-sky-500/100'>App</div>
     </>
   )
 }
