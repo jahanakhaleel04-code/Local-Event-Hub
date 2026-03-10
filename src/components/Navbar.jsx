@@ -8,7 +8,7 @@ export const Navbar = () => {
         <nav className='bg-white border-b border-gray-200 fixed w-full top-0 z-50'>
             <div className='flex flex-wrap flex-row justify-between items-center mx-auto p-3 max-w-screen-l'>
                 <div className="flex items-center space-x-3">
-                    <img src={logo} className='h-12 w-auto' alt="EventSpot" />
+                    <img src={logo} className='h-16 w-auto' alt="EventSpot" />
                     {/* <span className="self-center text-xl text-heading font-semibold whitespace-nowrap">Event Spot</span> */}
                 </div>
                 <div className="hidden md:flex w-1/3">
