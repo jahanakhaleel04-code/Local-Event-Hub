@@ -5,7 +5,7 @@ import { useState } from 'react'
 export const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false)
     return (
-        <nav className='bg-white border-b border-gray-200 fixed w-full top-0 z-50'>
+        <nav className='bg-white h-25 border-b border-gray-200 fixed w-full top-0 z-50'>
             <div className='flex flex-wrap flex-row justify-between items-center mx-auto p-3 max-w-screen-l'>
                 <div className="flex items-center space-x-3">
                     <img src={logo} className='h-16 w-auto' alt="EventSpot" />
@@ -27,18 +27,18 @@ export const Navbar = () => {
                         <input
                             type="search"
                             placeholder="Search events"
-                            className="w-full pl-9 pr-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full pl-9 pr-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
 
                     </div>
                 </div>
                 <div className='hidden md:flex items-center gap-5'>
-                    <a href="" className='text-gray-600 hover:text-purple-600'>Create Events</a>
-                    <a href="" className='text-gray-600 hover:text-purple-600'>Login</a>
-                    <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm">
+                    <a href="" className='text-gray-600 hover:text-blue-600'>Create Events</a>
+                    <a href="" className='text-gray-600 hover:text-blue-600'>Login</a>
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm">
                         Sign Up
                     </button>
-                    <a href="" className='text-gray-600 hover:text-purple-600'>Contact</a>
+                    <a href="" className='text-gray-600 hover:text-blue-600'>Contact</a>
                 </div>
                 <button className='md:hidden text-gray-600'
                     onClick={() => {
