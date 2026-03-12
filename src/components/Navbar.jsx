@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from '../assets/images/eventLogo.png'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false)
@@ -27,18 +28,20 @@ export const Navbar = () => {
                         <input
                             type="search"
                             placeholder="Search events"
-                            className="w-full pl-9 pr-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full pl-9 pr-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
 
                     </div>
                 </div>
                 <div className='hidden md:flex items-center gap-5'>
-                    <a href="" className='text-gray-600 hover:text-blue-600'>Create Events</a>
-                    <a href="" className='text-gray-600 hover:text-blue-600'>Login</a>
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm">
+                    <Link className='text-gray-600 hover:text-purple-600' to={'/'}>Home</Link>
+                    <Link className='text-gray-600 hover:text-purple-600' to={'/create-event'}>Create Event</Link>
+                    <Link className='text-gray-600 hover:text-purple-600'>Login</Link>
+                    <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm">
                         Sign Up
                     </button>
-                    <a href="" className='text-gray-600 hover:text-blue-600'>Contact</a>
+                    <Link href="" className='text-gray-600 hover:text-purple-600'>Calender</Link>
+                    <Link href="" className='text-gray-600 hover:text-purple-600'>Contact</Link>
                 </div>
                 <button className='md:hidden text-gray-600'
                     onClick={() => {

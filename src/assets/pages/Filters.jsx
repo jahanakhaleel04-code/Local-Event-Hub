@@ -1,25 +1,60 @@
 import React from 'react'
+import { Briefcase, UtensilsCrossed, Heart, Music } from 'lucide-react'
 
 export const Filters = () => {
+  const categories = [
+    { name: 'Business', icon: <Briefcase size={16} /> },
+    { name: 'Food & Drinks', icon: <UtensilsCrossed size={16} /> },
+    { name: 'Health', icon: <Heart size={16} /> },
+    { name: 'Music', icon: <Music size={16} /> }
+  ]
+  const locations = ['Calicut', 'Kochi', 'Trivandrum']
+  const dates = ['Today','Tomorrow','This Week','This Month']
   return (
     <div className='flex flex-col p-4 gap-6'>
       <h1 className='text-xl md:text-2xl font-bold text-gray-700'>Filters</h1>
       <div className='flex flex-col gap-2'>
         <h2 className='text-sm md:text-lg font-semibold tracking-wider'>Category</h2>
-        <ul className='flex flex-col gap-5'>
-          <li className='hover:text-blue-500'>
-            <svg class="stroke-cyan-500 ...">
- 
-</svg>
-          </li>
-          <li className='hover:text-blue-500'>Food & Drink</li>
-          <li className='hover:text-blue-500'>Health</li>
-          <li className='hover:text-blue-500'>Music</li>
+        <ul className='flex flex-col gap-2'>
+          {categories.map((cat, i) => {
+            return (<li className='flex p-2 items-center gap-2 cursor-pointer hover:text-purple-500' key={i}>
+              <span className='text-purple-700'>{cat.icon}</span>
+              {cat.name}</li>)
+          })}
         </ul>
       </div>
-      <div><h2 className='text-sm md:text-lg font-semibold tracking-wider'>Price</h2></div>
-      <div><h2 className='text-sm md:text-lg font-semibold tracking-wider'>Location</h2></div>
-      <div><h2 className='text-sm md:text-lg font-semibold tracking-wider'>Date</h2></div>
+      <div className='flex flex-col gap-2'>
+        <h2 className='text-sm md:text-lg font-semibold tracking-wider'>Price</h2>
+        <ul className='flex flex-col gap-2'>
+          <li className='flex items-center gap-2 p-2 curso-pointer hover:text-purple-500'>
+            <input type="radio" value='free' name='price' className='text-purple-500 w-4 h-4' />
+            Free</li>
+          <li className='flex items-center gap-2 p-2 curso-pointer hover:text-purple-500'>
+            <input type="radio" name='price' value='paid' className='text-purple-500 w-4 h-4' />
+            Paid</li>
+        </ul>
+      </div>
+      <div className='flex flex-col gap-2'><h2 className='text-sm md:text-lg font-semibold tracking-wider'>Location</h2>
+        <ul className='flex flex-col gap-2'>
+          {locations.map((loc) => {
+            return (
+              <li className='flex items-center gap-2 p-2 curso-pointer hover:text-purple-500'>
+                <input type="radio" name="location" value={loc} className='text-purple-500 w-4 h-4' />
+                {loc}</li>
+            )
+          })}
+        </ul>
+      </div>
+      <div className='flex flex-col gap-2'><h2 className='text-sm md:text-lg font-semibold tracking-wider'>Date</h2>
+        <ul className='flex flex-col gap-2'>
+          {dates.map((date)=>{
+            return(  <li className='flex items-center gap-2 p-2 curso-pointer hover:text-purple-500'>
+            <input type="radio" name="date" value={date} className='text-purple-500 w-4 h-4' />
+            {date}
+          </li>)
+          })}
+        </ul>
+      </div>
     </div>
   )
 }

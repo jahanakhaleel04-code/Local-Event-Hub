@@ -2,6 +2,7 @@ import './App.css'
 import {Routes,Route} from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { Home } from './assets/pages/Home'
+import { Events } from './assets/pages/Events'
 
 function App() {
  
@@ -10,6 +11,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Layout/>}>
         <Route index element={<Home/>} />
+        <Route path='/create-event' element={<Events/>}/>
       </Route>
     </Routes>
   )
