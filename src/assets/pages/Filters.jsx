@@ -36,9 +36,9 @@ export const Filters = () => {
       </div>
       <div className='flex flex-col gap-2'><h2 className='text-sm md:text-lg font-semibold tracking-wider'>Location</h2>
         <ul className='flex flex-col gap-2'>
-          {locations.map((loc) => {
+          {locations.map((loc,i) => {
             return (
-              <li className='flex items-center gap-2 p-2 curso-pointer hover:text-purple-500'>
+              <li key={i} className='flex items-center gap-2 p-2 curso-pointer hover:text-purple-500'>
                 <input type="radio" name="location" value={loc} className='text-purple-500 w-4 h-4' />
                 {loc}</li>
             )
@@ -47,8 +47,8 @@ export const Filters = () => {
       </div>
       <div className='flex flex-col gap-2'><h2 className='text-sm md:text-lg font-semibold tracking-wider'>Date</h2>
         <ul className='flex flex-col gap-2'>
-          {dates.map((date)=>{
-            return(  <li className='flex items-center gap-2 p-2 curso-pointer hover:text-purple-500'>
+          {dates.map((date,i)=>{
+            return(  <li key={i} className='flex items-center gap-2 p-2 curso-pointer hover:text-purple-500'>
             <input type="radio" name="date" value={date} className='text-purple-500 w-4 h-4' />
             {date}
           </li>)

@@ -10,19 +10,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@react-google-maps/api": "^2.20.8",
     "@reduxjs/toolkit": "^2.11.2",
     "@tailwindcss/vite": "^4.2.1",
+    "leaflet": "^1.9.4",
+    "leaflet-geosearch": "^4.2.2",
+    "lucide-react": "^0.577.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-hook-form": "^7.71.2",
+    "react-leaflet": "^5.0.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.13.1",
-    "tailwindcss": "^4.2.1"
+    "tailwindcss": "^4.2.1",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/pqgin-react": "^5.1.1",
+    "@vitejs/plugin-react": "^5.1.1",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
