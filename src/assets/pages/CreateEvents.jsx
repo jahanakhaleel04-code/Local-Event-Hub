@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import {useDispatch} from 'react-redux'
+import { createEvent } from '../../features/EventSlice'
 
 
 export const CreateEvents = () => {
@@ -37,18 +39,17 @@ export const CreateEvents = () => {
   const {register , handleSubmit , formState : {errors}} = useForm({
     resolver: yupResolver(signUpSchema)
   })
-   
+  const dispatch = useDispatch()
   const submitFunction = (data)=>{
     const file = data.image[0]
     const reader = new FileReader()
     reader.onload = ()=>{
-      const eventData = {
+      const newEvent = {
+        id:Date.now(),
         ...data,
         image : reader.result
       }
-      const storedEvents = JSON.parse(localStorage.getItem('events')) || []
-      storedEvents.push(eventData)
-      localStorage.setItem('events',JSON.stringify(storedEvents))
+      dispatch(createEvent(newEvent))
       navigate('/')
     }
     reader.readAsDataURL(file)

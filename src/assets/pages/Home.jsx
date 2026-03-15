@@ -1,6 +1,6 @@
 import React from 'react'
 import { Filters } from './Filters'
-import { EventList } from './EventList'
+import { EventList } from '../../components/EventList'
 import { Map } from '../../components/Map'
 
 export const Home = () => {
@@ -17,7 +17,7 @@ export const Home = () => {
                 {/* <p className='text-gray-400 text-base md:text-lg max-w-xl'>Search for something you love or check out popular events in your area.</p> */}
             </div>
             <div className='min-h-screen flex flex-col md:flex-row'>
-                <div className='basis-1/4 border-r border-gray-200'><Filters /></div>
+                <div className='basis-1/4 '><Filters /></div>
                 <div className='basis-2/4'><EventList /></div>
                 <div className='basis-1/4'><Map/></div>
             </div>
