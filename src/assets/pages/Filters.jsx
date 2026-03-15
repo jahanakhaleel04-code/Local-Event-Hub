@@ -1,7 +1,9 @@
 import React from 'react'
 import { Briefcase, UtensilsCrossed, Heart, Music } from 'lucide-react'
 
-export const Filters = () => {
+
+
+export const Filters = ({setSelectedCat,setSelectedPrice,setSelectedLocation}) => {
   const categories = [
     { name: 'Business', icon: <Briefcase size={16} /> },
     { name: 'Food & Drinks', icon: <UtensilsCrossed size={16} /> },
@@ -10,6 +12,9 @@ export const Filters = () => {
   ]
   const locations = ['Calicut', 'Kochi', 'Trivandrum']
   const dates = ['Today','Tomorrow','This Week','This Month']
+
+
+  //filter
   return (
     <div className='flex flex-col p-4 gap-6'>
       <h1 className='text-xl md:text-2xl font-bold text-gray-700'>Filters</h1>
@@ -17,7 +22,9 @@ export const Filters = () => {
         <h2 className='text-sm md:text-lg font-semibold tracking-wider'>Category</h2>
         <ul className='flex flex-col gap-2'>
           {categories.map((cat, i) => {
-            return (<li className='flex p-2 items-center gap-2 cursor-pointer hover:text-purple-500' key={i}>
+            return (<li
+            onClick={()=>{setSelectedCat(cat.name)}}
+            className='flex p-2 items-center gap-2 cursor-pointer hover:text-purple-500' key={i}>
               <span className='text-purple-700'>{cat.icon}</span>
               {cat.name}</li>)
           })}
@@ -27,10 +34,10 @@ export const Filters = () => {
         <h2 className='text-sm md:text-lg font-semibold tracking-wider'>Price</h2>
         <ul className='flex flex-col gap-2'>
           <li className='flex items-center gap-2 p-2 curso-pointer hover:text-purple-500'>
-            <input type="radio" value='free' name='price' className='text-purple-500 w-4 h-4' />
+            <input type="radio" onClick={()=>{setSelectedPrice('free')}} value='free' name='price' className='text-purple-500 w-4 h-4' />
             Free</li>
           <li className='flex items-center gap-2 p-2 curso-pointer hover:text-purple-500'>
-            <input type="radio" name='price' value='paid' className='text-purple-500 w-4 h-4' />
+            <input type="radio" onClick={()=>{setSelectedPrice('paid')}} name='price' value='paid' className='text-purple-500 w-4 h-4' />
             Paid</li>
         </ul>
       </div>
@@ -38,7 +45,7 @@ export const Filters = () => {
         <ul className='flex flex-col gap-2'>
           {locations.map((loc,i) => {
             return (
-              <li key={i} className='flex items-center gap-2 p-2 curso-pointer hover:text-purple-500'>
+              <li key={i} onClick={()=>{setSelectedLocation(loc)}} className='flex items-center gap-2 p-2 curso-pointer hover:text-purple-500'>
                 <input type="radio" name="location" value={loc} className='text-purple-500 w-4 h-4' />
                 {loc}</li>
             )

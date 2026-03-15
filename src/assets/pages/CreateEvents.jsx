@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { createEvent } from '../../features/EventSlice'
 
 
@@ -36,24 +36,24 @@ export const CreateEvents = () => {
 
   })
   const navigate = useNavigate()
-  const {register , handleSubmit , formState : {errors}} = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(signUpSchema)
   })
   const dispatch = useDispatch()
-  const submitFunction = (data)=>{
+  const submitFunction = (data) => {
     const file = data.image[0]
     const reader = new FileReader()
-    reader.onload = ()=>{
+    reader.onload = () => {
       const newEvent = {
-        id:Date.now(),
+        id: Date.now(),
         ...data,
-        image : reader.result
+        image: reader.result
       }
       dispatch(createEvent(newEvent))
       navigate('/')
     }
     reader.readAsDataURL(file)
-  } 
+  }
 
 
 
@@ -66,14 +66,14 @@ export const CreateEvents = () => {
           Add Your Event
         </h2>
 
-        <form onSubmit={ handleSubmit(submitFunction)} className="space-y-4">
+        <form onSubmit={handleSubmit(submitFunction)} className="space-y-4">
           <div>
             <label className='block text-sm font-medium mb-1'>Upload image
             </label>
             <input type="file"
-            {...register('image')}
-            accept='image/*'
-            className="w-full border border-gray-300 rounded-lg px-3 py-2"
+              {...register('image')}
+              accept='image/*'
+              className="w-full border border-gray-300 rounded-lg px-3 py-2"
             />
           </div>
           <div>
@@ -108,12 +108,13 @@ export const CreateEvents = () => {
             <label className="block text-sm font-medium mb-1">
               Location
             </label>
-            <input
-              type="text"
-              {...register('location')}
-              placeholder="Click map to select a location"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
-            />
+            <select className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+            {...register('locationq')}
+            >
+              <option>Kochi</option>
+              <option>Calicut</option>
+              <option>Trivandrum</option>
+            </select>
             <p className="text-red-500">{errors.location?.message}</p>
             {/* <LoadScript googleMapsApiKey="YOUR_API_KEY">
 

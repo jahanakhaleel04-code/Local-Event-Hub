@@ -1,12 +1,12 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
-export const EventList = () => {
-  const events = useSelector((s) => s.events.events)
+
+export const EventList = ({filteredEvents}) => {
+ 
   return (
     <div className='mt-4'>
       {
-        events.map((event) => {
+        filteredEvents.map((event) => {
           return (
             <div key={event.id} className='mt-4 max-w-4xl bg-white rounded-l shadow-md overflow-hidden flex'>
               <img src={event.image} alt="event" className='w-45 h-40 object-cover' />
