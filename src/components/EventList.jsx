@@ -1,14 +1,14 @@
 import React from 'react'
-
+import {useNavigate} from 'react-router-dom'
 
 export const EventList = ({filteredEvents}) => {
- 
+ const navigate = useNavigate()
   return (
     <div className='mt-4'>
       {
         filteredEvents.map((event) => {
           return (
-            <div key={event.id} className='mt-4 max-w-4xl bg-white rounded-l shadow-md overflow-hidden flex'>
+            <div onClick={()=>{navigate(`/event-detail/${event.id}`)}} key={event.id} className='mt-4 max-w-4xl bg-white rounded-l shadow-md overflow-hidden flex cursor-pointer hover:shadow-xl'>
               <img src={event.image} alt="event" className='w-45 h-40 object-cover' />
               <div className='p-4 flex flex-col justify-between flex-1'>
                 <div>

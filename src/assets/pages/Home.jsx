@@ -8,14 +8,42 @@ import { useSelector } from 'react-redux'
 export const Home = () => {
     const events = useSelector((s) => s.events.events)
     const [selectedCat, setSelectedCat] = useState('All')
-    const [selectedPrice,setSelectedPrice] = useState('All')
-    const [selectedLocation,setSelectedLocation] = useState('All')
-    
-    const filteredEvents = events.filter((event)=>{
-        const categoryEvents = selectedCat==='All' || event.category === selectedCat
-        const priceEvents = selectedPrice ==='All' || event.price === selectedPrice 
+    const [selectedPrice, setSelectedPrice] = useState('All')
+    const [selectedLocation, setSelectedLocation] = useState('All')
+    const [selectedDate, setSelectedDate] = useState('All')
+
+    const filteredEvents = events.filter((event) => {
+
+        const eventDate = new Date(event.date)
+        const today = new Date()
+
+        const categoryEvents = selectedCat === 'All' || event.category === selectedCat
+        const priceEvents = selectedPrice === 'All' || event.price === selectedPrice
         const locationEvents = selectedLocation === 'All' || event.location === selectedLocation
-        return categoryEvents && priceEvents && locationEvents
+
+        let dateEvent = true
+        if (selectedDate === 'Today') {
+            // console.log(today.toDateString)
+            dateEvent = eventDate.toDateString() === today.toDateString()
+        }
+        if (selectedDate === 'Tomorrow') {
+            const tomorrow = new Date()
+            tomorrow.setDate(today.getDate() + 1)
+            dateEvent = eventDate.toDateString() === tomorrow.toDateString()
+        }
+        if (selectedDate === 'This Week') {
+            const nextWeek = new Date()
+            nextWeek.setDate(today.getDate() + 7)
+            dateEvent = eventDate >= today && eventDate <= nextWeek
+        }
+        if (selectedDate === 'This Month') {
+            dateEvent = (
+                eventDate.getMonth() === today.getMonth() &&
+                eventDate.getFullYear() === today.getFullYear()
+            )
+        }
+        // console.log(selectedDate)
+        return categoryEvents && priceEvents && locationEvents && dateEvent
 
     })
     return (
@@ -31,8 +59,8 @@ export const Home = () => {
                 {/* <p className='text-gray-400 text-base md:text-lg max-w-xl'>Search for something you love or check out popular events in your area.</p> */}
             </div>
             <div className='min-h-screen flex flex-col md:flex-row'>
-                <div className='basis-1/4 '><Filters setSelectedCat={setSelectedCat} setSelectedPrice={setSelectedPrice} setSelectedLocation={setSelectedLocation} /></div>
-                <div className='basis-2/4'><EventList filteredEvents={filteredEvents}/></div>
+                <div className='basis-1/4 '><Filters setSelectedCat={setSelectedCat} setSelectedPrice={setSelectedPrice} setSelectedLocation={setSelectedLocation} setSelectedDate={setSelectedDate} /></div>
+                <div className='basis-2/4'><EventList filteredEvents={filteredEvents} /></div>
                 <div className='basis-1/4'><Map /></div>
             </div>
         </>
