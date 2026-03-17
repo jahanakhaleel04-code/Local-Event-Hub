@@ -116,20 +116,7 @@ export const CreateEvents = () => {
               <option>Trivandrum</option>
             </select>
             <p className="text-red-500">{errors.location?.message}</p>
-            {/* <LoadScript googleMapsApiKey="YOUR_API_KEY">
-
-              <GoogleMap
-                mapContainerStyle={{ width: "100%", height: "350px" }}
-                center={coordinates}
-                zoom={12}
-                onClick={handleMapClick}
-              >
-
-                <Marker position={coordinates} />
-
-              </GoogleMap>
-
-            </LoadScript> */}
+            
           </div>
 
           <div>

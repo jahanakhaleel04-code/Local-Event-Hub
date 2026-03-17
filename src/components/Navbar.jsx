@@ -35,13 +35,13 @@ export const Navbar = () => {
                 </div>
                 <div className='hidden md:flex items-center gap-5'>
                     <Link className='text-gray-600 hover:text-purple-600' to={'/'}>Home</Link>
-                    <Link className='text-gray-600 hover:text-purple-600' to={'/create-event'}>Create Event</Link>
-                    <Link className='text-gray-600 hover:text-purple-600'>Login</Link>
+                    <Link className='text-gray-600 hover:text-purple-600' to={'create-event'}>Create Event</Link>
+                    <Link className='text-gray-600 hover:text-purple-600' to={'login'}>Login</Link>
                     <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm">
-                        Sign Up
+                      <Link to={'register'}>Sign Up</Link>  
                     </button>
-                    <Link href="" className='text-gray-600 hover:text-purple-600'>Calender</Link>
-                    <Link href="" className='text-gray-600 hover:text-purple-600'>Contact</Link>
+                    <Link className='text-gray-600 hover:text-purple-600' to={'calender'}>Calender</Link>
+                    {/* <Link href="" className='text-gray-600 hover:text-purple-600'>Contact</Link> */}
                 </div>
                 <button className='md:hidden text-gray-600'
                     onClick={() => {

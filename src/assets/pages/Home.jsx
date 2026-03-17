@@ -60,8 +60,8 @@ export const Home = () => {
             </div>
             <div className='min-h-screen flex flex-col md:flex-row'>
                 <div className='basis-1/4 '><Filters setSelectedCat={setSelectedCat} setSelectedPrice={setSelectedPrice} setSelectedLocation={setSelectedLocation} setSelectedDate={setSelectedDate} /></div>
-                <div className='basis-2/4'><EventList filteredEvents={filteredEvents} /></div>
-                <div className='basis-1/4'><Map /></div>
+                <div className='basis-3/4'><EventList filteredEvents={filteredEvents} /></div>
+                {/* <div className='basis-1/4'><Map /></div> */}
             </div>
         </>
 

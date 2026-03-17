@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { Map } from '../../components/Map'
 
 export const EventDetail = () => {
     const { id } = useParams()
@@ -18,6 +19,7 @@ export const EventDetail = () => {
                  <h3 className='text-l md:text-xl font-semibold text-gray-700'>{event.summary}</h3>
                  <p><span className='text-xl'>Location :</span>📍 {event.location}</p>
                  <p><span className='text-xl'>Date :</span>📅  {event.date}</p>
+                <Map eventid= {id}/>
             </div>
             
         </div>

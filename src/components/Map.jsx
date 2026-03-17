@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux"; // 👈 only change in imports
+import { useSelector } from "react-redux";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -29,36 +29,38 @@ async function geocode(locationName) {
   if (data.length === 0) return null;
   return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
 }
-const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
-export const Map = () => {
+
+export const Map = ({ eventid }) => {
   const [markers, setMarkers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState({ done: 0, total: 0 });
   const events = useSelector((state) => state.events.events);
   useEffect(() => {
     const loadMarkers = async () => {
-      const withLocation = events.filter((e) => e.location?.trim());
-      if (withLocation.length === 0) { setLoading(false); return; }
 
-      setProgress({ done: 0, total: withLocation.length });
+      const event = events.find((event) => {
+        return event.id === Number(eventid)
+      })
+      if (!event || !event.location?.trim()) {
+        setLoading(false)
+        return
+      }
+      // console.log(event)
       const results = [];
 
-      for (let i = 0; i < withLocation.length; i++) {
-        const event = withLocation[i];
-        const coords = await geocode(event.location);
 
-        if (coords) {
-          results.push({
-            lat: coords.lat,
-            lng: coords.lng,
-            name: event.name,
-            location: event.location,
-          });
-        }
-
-        setProgress({ done: i + 1, total: withLocation.length });
-        if (i < withLocation.length - 1) await sleep(1000);
+      const coords = await geocode(event.location);
+      // console.log(coords)
+      if (coords) {
+        results.push({
+          lat: coords.lat,
+          lng: coords.lng,
+          name: event.title,
+          location: event.location,
+        });
       }
+      // console.log(results)
+
+
 
       setMarkers(results);
       setLoading(false);
@@ -67,31 +69,10 @@ export const Map = () => {
     if (events.length > 0) loadMarkers();
     else setLoading(false);
 
-  }, [events]);
+  }, [events, eventid]);
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: 24 }}>
-      <h2>Event Locations</h2>
-
-      {/* Loading progress */}
-      {loading && (
-        <div style={{ marginBottom: 16 }}>
-          <p style={{ fontSize: 14, color: "#666", margin: "0 0 8px" }}>
-            Locating events... {progress.done} / {progress.total}
-          </p>
-          <div style={{ background: "#eee", borderRadius: 6, height: 6 }}>
-            <div style={{
-              background: "#378ADD",
-              height: 6,
-              borderRadius: 6,
-              width: progress.total
-                ? `${(progress.done / progress.total) * 100}%`
-                : "0%",
-              transition: "width 0.4s ease",
-            }} />
-          </div>
-        </div>
-      )}
-
+    <div className='w-full'>
+      
       {/* Map */}
       <MapContainer
         center={[20.5937, 78.9629]}
@@ -103,7 +84,7 @@ export const Map = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         />
 
-       
+
         {!loading && <FitBounds markers={markers} />}
 
         {markers.map((marker, i) => (
@@ -117,7 +98,7 @@ export const Map = () => {
         ))}
       </MapContainer>
 
-      
+
     </div>
   );
 }
