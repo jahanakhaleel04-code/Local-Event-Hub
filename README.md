@@ -1,16 +1,61 @@
-# React + Vite
+# 🎉 Event Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-featured **Event Management Web App** built with React and Redux Toolkit.  
+Users can register, login, create events, filter them, and view locations on a map.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
+👉 https://local-event-n9xq8o7f8-jahanakhaleel04-codes-projects.vercel.app/
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📌 Features
 
-## Expanding the ESLint configuration
+- 🔐 User Registration & Login (Auth with Redux)
+- ➕ Create Events
+- 📋 View Event Listings
+- 🔍 Advanced Filtering:
+  - Category
+  - Price (Free / Paid)
+  - Location
+  - Date (Today, Tomorrow, This Week, This Month)
+- 📅 Calendar View
+- 🗺️ Map View (React Leaflet)
+- 🖼️ Image Upload with Preview
+- 🔔 Toast Notifications
+- 💾 LocalStorage Persistence
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React, React Router
+- **State Management:** Redux Toolkit
+- **Styling:** Tailwind CSS
+- **Forms & Validation:** React Hook Form + Yup
+- **Maps:** React Leaflet (OpenStreetMap)
+- **Notifications:** React Toastify
+
+---
+
+## 📂 Folder Structure
+src/
+├── components/
+├── features/
+│ ├── auth/
+│ └── events/
+├── pages/
+├── App.jsx
+└── main.jsx
+
+## ⚙️ Installation
+
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+npm install
+npm run dev
+
+
+https://local-event-n9xq8o7f8-jahanakhaleel04-codes-projects.vercel.app/
