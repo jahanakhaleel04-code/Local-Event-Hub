@@ -2,9 +2,14 @@ import React from 'react'
 import logo from '../assets/images/eventLogo.png'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import {useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
+import { logout } from '../features/AuthSlice'
 
 export const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false)
+    const {isAuthenticated} = useSelector(state => state.auth)
+    const dispatch = useDispatch()
     return (
         <nav className='bg-white h-25 border-b border-gray-200 fixed w-full top-0 z-50'>
             <div className='flex flex-wrap flex-row justify-between items-center mx-auto p-3 max-w-screen-l'>
@@ -36,7 +41,12 @@ export const Navbar = () => {
                 <div className='hidden md:flex items-center gap-5'>
                     <Link className='text-gray-600 hover:text-purple-600' to={'/'}>Home</Link>
                     <Link className='text-gray-600 hover:text-purple-600' to={'create-event'}>Create Event</Link>
-                    <Link className='text-gray-600 hover:text-purple-600' to={'login'}>Login</Link>
+                    {
+                        isAuthenticated ? <button onClick={() => dispatch(logout())}><Link className='text-gray-600 hover:text-purple-600'>Logout</Link> </button>:
+                         <Link className='text-gray-600 hover:text-purple-600' to={'login'}>Login</Link>
+
+                    }
+                    
                     <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm">
                       <Link to={'register'}>Sign Up</Link>  
                     </button>

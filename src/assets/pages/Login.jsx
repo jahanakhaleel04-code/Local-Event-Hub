@@ -15,16 +15,16 @@ export const Login = () => {
         dispatch(login(data))
     }
 
-    const user = useSelector((s)=>{s.auth})
+    const { loggedInUser } = useSelector(state => state.auth)
     const navigate = useNavigate()
 
     useEffect(()=>{
-        console.log(user)
-        if(user)
+        console.log(loggedInUser)
+        if(loggedInUser)
         {
             navigate('/')
         }
-    },[user])
+    },[loggedInUser])
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
@@ -63,7 +63,7 @@ export const Login = () => {
                     </div>
 
                     <button type='submit' className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-                        Register
+                        Login
                     </button>
                 </form>
             </div>

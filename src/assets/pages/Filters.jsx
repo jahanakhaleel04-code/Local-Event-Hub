@@ -21,7 +21,7 @@ export const Filters = ({ setSelectedCat, setSelectedPrice, setSelectedLocation,
 
   //filter
   return (
-    <div className='flex flex-col p-4 gap-6'>
+    <div className='flex flex-row gap-1 md:flex-col p-4 md:gap-6'>
       <h1 className='text-xl md:text-2xl font-bold text-gray-700'>Filters</h1>
       <div className='flex flex-col gap-2'>
         <h2 className='text-sm md:text-lg font-semibold tracking-wider'>Category</h2>
