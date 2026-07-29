@@ -3,9 +3,10 @@ import logo from '../images/eventLogo.png'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import {useDispatch} from 'react-redux'
-import { register  as registeredUser } from '../../features/AuthSlice'
-import {useNavigate} from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import axios from 'axios'
+import { login } from '../../features/AuthSlice'
+import { useNavigate } from 'react-router-dom'
 
 export const Register = () => {
     const regSchema = yup.object({
@@ -26,14 +27,24 @@ export const Register = () => {
             .required('Enter password again to confirm')
             .oneOf([yup.ref('password')], 'Password must match')
     })
-    const {register,handleSubmit,formState:{errors}} = useForm({
-        resolver:yupResolver(regSchema)
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(regSchema)
     })
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const formSubmit = (data) =>{
-       dispatch(registeredUser(data))
-       navigate('/')
+    const formSubmit = async (data) => {
+        const res = await axios.post(
+            "http://localhost:3000/api/auth/register",
+            data
+        );
+
+        localStorage.setItem(
+            "token",
+            res.data.token
+        );
+
+        dispatch(login(res.data));
+        navigate('/')
     }
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">

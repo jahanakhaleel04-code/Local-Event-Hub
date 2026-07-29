@@ -1,30 +1,42 @@
 import React from 'react'
-import  logo  from '../images/eventLogo.png'
-import {useDispatch } from 'react-redux'
+import logo from '../images/eventLogo.png'
+import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { login } from '../../features/AuthSlice'
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { useEffect } from "react"
+import axios from 'axios'
 
 export const Login = () => {
     const dispatch = useDispatch()
-    const {register,handleSubmit} = useForm()
-    const formSubmit = (data)=>{
-        // console.log(data)
-        dispatch(login(data))
-    }
+    const { register, handleSubmit } = useForm()
+    const formSubmit = async (data) => {
+        try {
+            const response = await axios.post(
+                "http://localhost:3000/api/auth/login",
+                data
+            );
+
+            localStorage.setItem("token", response.data.token);
+
+            dispatch(login(response.data));
+
+            navigate("/");
+        } catch (error) {
+            alert(error.response?.data?.message || "Login failed");
+        }
+    };
 
     const { loggedInUser } = useSelector(state => state.auth)
     const navigate = useNavigate()
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(loggedInUser)
-        if(loggedInUser)
-        {
+        if (loggedInUser) {
             navigate('/')
         }
-    },[loggedInUser])
+    }, [loggedInUser])
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">

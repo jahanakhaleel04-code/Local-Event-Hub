@@ -55,9 +55,11 @@ export const Navbar = () => {
 
                     }
                     
-                    <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm">
-                      <Link to={'register'}>Sign Up</Link>  
-                    </button>
+                    {!isAuthenticated && (
+                        <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm">
+                            <Link to={'register'}>Sign Up</Link>
+                        </button>
+                    )}
                     <Link className='text-gray-600 hover:text-purple-600' to={'calender'}>Calender</Link>
                     {/* <Link href="" className='text-gray-600 hover:text-purple-600'>Contact</Link> */}
                 </div>

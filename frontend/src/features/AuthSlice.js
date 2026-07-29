@@ -1,62 +1,30 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { LogOut } from 'lucide-react'
-import { toast } from 'react-toastify'
+import { createSlice } from "@reduxjs/toolkit";
 
-const savedUsers = JSON.parse(localStorage.getItem('users'))
-const savedUser = JSON.parse(localStorage.getItem('user'))
 const initialState = {
-    loggedInUser: savedUser || null,
-    users: Array.isArray(savedUsers) ? savedUsers : [],
-    isAuthenticated: !!savedUser
-}
+  loggedInUser: null,
+  token: localStorage.getItem("token") || null,
+  isAuthenticated: !!localStorage.getItem("token"),
+};
 
 const authSlice = createSlice({
-    name: 'auth',
-    initialState,
-    reducers: {
-        register: (state, action) => {
-            const { email } = action.payload
-            // console.log(state.users)
-            const existingUser = state.users.find((user) => (
-                user.email === email
-            ))
-            if (existingUser) {
-                return toast.error('User already registered')
-            }
-            // console.log(existingUser)
-            else {
-                state.users.push({ id: Date.now(), ...action.payload })
-                localStorage.setItem('users', JSON.stringify(state.users))
-                toast.success('User Registered Succesfully')
-            }
+  name: "auth",
+  initialState,
+  reducers: {
+    login: (state, action) => {
+        console.log("Login action payload:", action.payload); // Debugging line
+      state.loggedInUser = action.payload.user;
+      state.token = action.payload.token;
+      state.isAuthenticated = true;
+    },
 
-        },
-        login: (state, action) => {
-            // console.log(action.payload)
-            const { email, password } = action.payload
-            const existingUser = state.users.find((user) => {
-                return user.email === email
-            })
-            if (!existingUser) {
-                return toast.error('No user found with this email, Please register')
-            }
-            if (existingUser.password != password) {
-                return toast.error('Incorrect Password')
-            }
-            state.loggedInUser = existingUser
-            state.isAuthenticated = true
-            // console.log(existingUser)
-            localStorage.setItem('user', JSON.stringify(state.loggedInUser))
-            toast.success('Login Successfull')
-        },
-        logout: (state) => {console.log('sdsaasd')
-            localStorage.removeItem('user')
-            state.loggedInUser = null
-            state.isAuthenticated = false
-            toast.success('Logged out successfully')
-        }
-    }
+    logout: (state) => {
+      state.loggedInUser = null;
+      state.token = null;
+      state.isAuthenticated = false;
+      localStorage.removeItem("token");
+    },
+  },
+});
 
-})
-export const { register, login , logout } = authSlice.actions
-export default authSlice.reducer
+export const { login, logout } = authSlice.actions;
+export default authSlice.reducer;
