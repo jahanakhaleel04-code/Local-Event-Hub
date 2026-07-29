@@ -1,11 +1,12 @@
-import React from 'react'
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { useDispatch } from 'react-redux'
 import { createEvent } from '../../features/EventSlice'
+import axios from 'axios'
+
 
 
 export const CreateEvents = () => {
@@ -40,20 +41,39 @@ export const CreateEvents = () => {
     resolver: yupResolver(signUpSchema)
   })
   const dispatch = useDispatch()
-  const submitFunction = (data) => {
-    const file = data.image[0]
-    const reader = new FileReader()
-    reader.onload = () => {
-      const newEvent = {
-        id: Date.now(),
-        ...data,
-        image: reader.result
-      }
-      dispatch(createEvent(newEvent))
-      navigate('/')
+  const [loading, setLoading] = useState(false);
+  const submitFunction = async (data) => {
+    try {
+       setLoading(true);
+      const formData = new FormData();
+
+      formData.append("title", data.title);
+      formData.append("summary", data.summary);
+      formData.append("location", data.location);
+      formData.append("date", data.date);
+      formData.append("price", data.price);
+      formData.append("category", data.category);
+      formData.append("image", data.image[0]);
+
+      const response = await axios.post(
+        "http://localhost:3000/api/events",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      dispatch(createEvent(response.data.event));
+
+      navigate("/");
+    } catch (error) {
+      console.log(error.response?.data || error.message);
+    } finally {
+      setLoading(false);
     }
-    reader.readAsDataURL(file)
-  }
+  };
 
 
 
@@ -109,14 +129,14 @@ export const CreateEvents = () => {
               Location
             </label>
             <select className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
-            {...register('location')}
+              {...register('location')}
             >
               <option>Kochi</option>
               <option>Calicut</option>
               <option>Trivandrum</option>
             </select>
             <p className="text-red-500">{errors.location?.message}</p>
-            
+
           </div>
 
           <div>
@@ -180,9 +200,43 @@ export const CreateEvents = () => {
             <p className="text-red-500">{errors.category?.message}</p>
           </div>
 
-          <button type='submit' className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-            Add Event
-          </button>
+          <button
+  type="submit"
+  disabled={loading}
+  className={`w-full py-2 rounded-lg text-white transition ${
+    loading
+      ? "bg-gray-400 cursor-not-allowed"
+      : "bg-purple-600 hover:bg-purple-700"
+  }`}
+>
+  {loading ? (
+    <span className="flex items-center justify-center gap-2">
+      <svg
+        className="w-5 h-5 animate-spin"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+        />
+        <path
+          className="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+        />
+      </svg>
+      Adding Event...
+    </span>
+  ) : (
+    "Add Event"
+  )}
+</button>
 
         </form>
       </div>

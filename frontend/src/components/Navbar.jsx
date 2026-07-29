@@ -5,11 +5,15 @@ import { Link } from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {useDispatch} from 'react-redux'
 import { logout } from '../features/AuthSlice'
+import resetFilters from '../features/FilterSlice'
+import { setSearch } from '../features/FilterSlice'
 
 export const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false)
     const {isAuthenticated} = useSelector(state => state.auth)
     const dispatch = useDispatch()
+    const search = useSelector(state => state.filters.search)
+    
     return (
         <nav className='bg-white h-25 border-b border-gray-200 fixed w-full top-0 z-50'>
             <div className='flex flex-wrap flex-row justify-between items-center mx-auto p-3 max-w-screen-l'>
@@ -33,13 +37,17 @@ export const Navbar = () => {
                         <input
                             type="search"
                             placeholder="Search events"
+                            value={search}
+                            onChange={(e) => dispatch(setSearch(e.target.value))}
                             className="w-full pl-9 pr-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
 
                     </div>
                 </div>
                 <div className='hidden md:flex items-center gap-5'>
-                    <Link className='text-gray-600 hover:text-purple-600' to={'/'}>Home</Link>
+                    <Link className='text-gray-600 hover:text-purple-600' to={'/'}
+                    onClick={() => dispatch(resetFilters())}
+                    >Home</Link>
                     <Link className='text-gray-600 hover:text-purple-600' to={'create-event'}>Create Event</Link>
                     {
                         isAuthenticated ? <button onClick={() => dispatch(logout())}><Link className='text-gray-600 hover:text-purple-600'>Logout</Link> </button>:
